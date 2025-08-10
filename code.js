@@ -10,18 +10,13 @@ function getComputerChoice()
 }
 
 
-function getHumanChoice()
-{
-    let ch=prompt("Enter your choice: Rock,paper,scissors");
-    return ch.toLowerCase();
-}
-
-
 let humanScore=0;
 let computerScore=0;
 
 function playRound(humanChoice,computerChoice){
-    
+    if (humanScore >= 5 || computerScore >= 5) {
+        return; 
+    }
      if(humanChoice=="rock"&&computerChoice=="scissor")
      {
         humanScore++;
@@ -48,30 +43,43 @@ function playRound(humanChoice,computerChoice){
         computerScore++;
     }
     
-        console.log(`Your score:${humanScore}`);
-        console.log(`Computer's score:${computerScore}`);
+        choice.textContent =`Your choice: ${humanChoice} | Computer choice: ${computerChoice}`;
+        score.textContent=`Your score: ${humanScore} - Computer score: ${computerScore}`;
+
+      if (computerScore === 5 && humanScore === 5) {
+        stres.textContent = "It's a tie!";
+    } else if (computerScore === 5) {
+        stres.textContent = "You lose!";
+    } else if (humanScore === 5) {
+        stres.textContent = "You win!";
+    }
    
 }
  
 
+    const rockbtn=document.getElementById("rock");
+    const paperbtn= document.getElementById("paper");
+    const scissorbtn=document.getElementById("scissor");
+     
 
-function playGame(){
-    for(let i=0;i<5;i++)
-    {
-        let humanChoice=getHumanChoice();
-        let computerChoice=getComputerChoice();
-        
-        console.log(`Computer choice: ${computerChoice}`);
-        console.log(`User choice: ${humanChoice}`);
+    const stres= document.getElementById("stres");
+    const choice= document.getElementById("choice");
+    const score=document.getElementById("score");
+    const res= document.getElementById("res");
 
-        playRound(humanChoice,computerChoice);
-    }
-}
-playGame();
+    rockbtn.addEventListener("click",()=>{
+        playRound("rock",getComputerChoice());
+    });
 
-if (computerScore>humanScore)
-        console.log("You loose!");
-    else if (computerScore==humanScore)
-        console.log("It's a tie");
-    else
-        console.log("You win!");
+    paperbtn.addEventListener("click",()=>{
+        playRound("paper",getComputerChoice());
+    });
+
+    scissorbtn.addEventListener("click",()=>{
+        playRound("scissor",getComputerChoice());
+    });
+
+
+
+
+    
